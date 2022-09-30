@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ListCoursesService } from '../list-courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-course',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-course.page.scss'],
 })
 export class AddCoursePage implements OnInit {
+  constructor(private courseSer: ListCoursesService, private router: Router) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  onSubmit(newCourse) {
+    newCourse.keywords = newCourse.keywords.split(',');
+    this.courseSer.addCourse(newCourse);
+    this.router.navigateByUrl('/');
   }
-
 }

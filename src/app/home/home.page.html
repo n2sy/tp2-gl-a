@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons> -->
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button routerLink="/add">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
 
@@ -20,6 +20,7 @@
 <ion-content>
   <ion-list>
     <ion-item [routerLink]="['/courses', course.id]" *ngFor="let course of tabCourses">
+
       <ion-avatar>
         <img [src]="course.image" />
       </ion-avatar>

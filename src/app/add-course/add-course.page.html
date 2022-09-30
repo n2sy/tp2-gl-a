@@ -1,9 +1,35 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>add-course</ion-title>
+  <ion-toolbar color="secondary">
+    <ion-title>Add a-course</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="ion-margin">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <label for="name">Title</label>
+      <input #inputName="ngModel" required ngModel type="text" class="form-control" name="title" id="name">
+      <div *ngIf="inputName.invalid && inputName.touched" class="alert alert-danger">Ce champ est obligatoire</div>
+
+      <label for="age">Author</label>
+      <input required ngModel type="text" class="form-control" id="age" name="author">
+      <label for="image">Image</label>
+      <input required ngModel type="text" class="form-control" id="image" name="image">
+      <label for="keywords">Keywords</label>
+      <input required ngModel type="text" class="form-control" id="keywords" name="keywords">
+      <i>Use commas to seperate keywords</i>
+
+      <ion-button [disabled]="f.invalid" type='submit' expand="block">Add</ion-button>
+    </form>
+
+    <pre>
+    {{ f.value | json}}
+  </pre>
+  </div>
+
 
 </ion-content>

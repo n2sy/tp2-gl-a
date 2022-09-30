@@ -40,4 +40,14 @@ export class ListCoursesService {
   }
 
   constructor() {}
+
+  deleteCourse(course) {
+    let i = this.tabCourses.indexOf(course);
+    this.tabCourses.splice(i, 1);
+  }
+
+  addCourse(newC) {
+    newC.id = this.tabCourses[this.tabCourses.length - 1].id + 1;
+    this.tabCourses.push(newC);
+  }
 }

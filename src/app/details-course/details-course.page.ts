@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { ListCoursesService } from '../list-courses.service';
 
 @Component({
@@ -11,7 +12,9 @@ export class DetailsCoursePage implements OnInit {
   selectedCourse;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private courseSer: ListCoursesService
+    private courseSer: ListCoursesService,
+    private alertCtrl: AlertController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -27,5 +30,28 @@ export class DetailsCoursePage implements OnInit {
         console.log(this.selectedCourse);
       },
     });
+  }
+
+  async presentAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmation',
+      message: 'Etes vous sur de vouloir supprimer ce cours ?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.courseSer.deleteCourse(this.selectedCourse);
+            //this.router.navigate(['home'])
+            this.router.navigateByUrl('/home');
+          },
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    await alert.present();
   }
 }
